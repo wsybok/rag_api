@@ -174,8 +174,13 @@ GOOGLE_PROJECT_ID = get_env_variable("GOOGLE_PROJECT_ID", "")
 GOOGLE_LOCATION = get_env_variable("GOOGLE_LOCATION", "us-central1")
 GOOGLE_APPLICATION_CREDENTIALS = get_env_variable("GOOGLE_APPLICATION_CREDENTIALS", "")
 
-## Embeddings
+# Add Google AI environment setup
+def init_google_vertex():
+    if EMBEDDINGS_PROVIDER == EmbeddingsProvider.GOOGLE:
+        import vertexai
+        vertexai.init(project=GOOGLE_PROJECT_ID, location=GOOGLE_LOCATION)
 
+## Embeddings
 
 def init_embeddings(provider, model):
     if provider == EmbeddingsProvider.OPENAI:
@@ -225,11 +230,8 @@ def init_embeddings(provider, model):
         )
     elif provider == EmbeddingsProvider.GOOGLE:
         from langchain_google_vertexai import VertexAIEmbeddings
-        
+        init_google_vertex()
         return VertexAIEmbeddings(
-            project=GOOGLE_PROJECT_ID,
-            location=GOOGLE_LOCATION,
-            credentials_path=GOOGLE_APPLICATION_CREDENTIALS,
             model_name=model,
         )
     else:
@@ -261,7 +263,7 @@ elif EMBEDDINGS_PROVIDER == EmbeddingsProvider.BEDROCK:
     AWS_DEFAULT_REGION = get_env_variable("AWS_DEFAULT_REGION", "us-east-1")
 elif EMBEDDINGS_PROVIDER == EmbeddingsProvider.GOOGLE:
     EMBEDDINGS_MODEL = get_env_variable(
-        "EMBEDDINGS_MODEL", "textembedding-gecko"
+        "EMBEDDINGS_MODEL", "textembedding-gecko@001"  # 更新为最新的模型版本
     )
 else:
     raise ValueError(f"Unsupported embeddings provider: {EMBEDDINGS_PROVIDER}")

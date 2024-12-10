@@ -12,7 +12,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Create directory for Google credentials
-RUN mkdir -p /app/credentials
+RUN mkdir -p /app/api/data
 
 # Set default credentials path
 # ENV GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/google.json
