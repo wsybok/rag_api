@@ -170,6 +170,9 @@ HF_TOKEN = get_env_variable("HF_TOKEN", "")
 OLLAMA_BASE_URL = get_env_variable("OLLAMA_BASE_URL", "http://ollama:11434")
 AWS_ACCESS_KEY_ID = get_env_variable("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY", "")
+GOOGLE_PROJECT_ID = get_env_variable("GOOGLE_PROJECT_ID", "")
+GOOGLE_LOCATION = get_env_variable("GOOGLE_LOCATION", "us-central1")
+GOOGLE_APPLICATION_CREDENTIALS = get_env_variable("GOOGLE_APPLICATION_CREDENTIALS", "")
 
 ## Embeddings
 
@@ -220,6 +223,15 @@ def init_embeddings(provider, model):
             model_id=model,
             region_name=AWS_DEFAULT_REGION,
         )
+    elif provider == EmbeddingsProvider.GOOGLE:
+        from langchain_google_vertexai import VertexAIEmbeddings
+        
+        return VertexAIEmbeddings(
+            project=GOOGLE_PROJECT_ID,
+            location=GOOGLE_LOCATION,
+            credentials_path=GOOGLE_APPLICATION_CREDENTIALS,
+            model_name=model,
+        )
     else:
         raise ValueError(f"Unsupported embeddings provider: {provider}")
 
@@ -247,6 +259,10 @@ elif EMBEDDINGS_PROVIDER == EmbeddingsProvider.BEDROCK:
         "EMBEDDINGS_MODEL", "amazon.titan-embed-text-v1"
     )
     AWS_DEFAULT_REGION = get_env_variable("AWS_DEFAULT_REGION", "us-east-1")
+elif EMBEDDINGS_PROVIDER == EmbeddingsProvider.GOOGLE:
+    EMBEDDINGS_MODEL = get_env_variable(
+        "EMBEDDINGS_MODEL", "textembedding-gecko"
+    )
 else:
     raise ValueError(f"Unsupported embeddings provider: {EMBEDDINGS_PROVIDER}")
 

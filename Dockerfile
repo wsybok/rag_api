@@ -11,6 +11,12 @@ RUN apt-get update \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
+# Create directory for Google credentials
+RUN mkdir -p /app/credentials
+
+# Set default credentials path
+ENV GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/google.json
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
