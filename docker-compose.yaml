@@ -17,16 +17,12 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=5432
-      - GOOGLE_APPLICATION_CREDENTIALS=/app/api/data/auth.json
-      - GOOGLE_CLOUD_PROJECT=${GOOGLE_PROJECT_ID}
+      - GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID}
+      - GOOGLE_CREDENTIALS_JSON=${GOOGLE_CREDENTIALS_JSON}
     ports:
       - "8000:8000"
     volumes:
       - ./uploads:/app/uploads
-      - type: bind
-        source: ./auth.json
-        target: /app/api/data/auth.json
-        read_only: true
     depends_on:
       - db
     env_file:

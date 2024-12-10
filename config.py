@@ -178,6 +178,20 @@ GOOGLE_APPLICATION_CREDENTIALS = get_env_variable("GOOGLE_APPLICATION_CREDENTIAL
 def init_google_vertex():
     if EMBEDDINGS_PROVIDER == EmbeddingsProvider.GOOGLE:
         import vertexai
+        # Get credentials from environment if available
+        credentials_json = get_env_variable("GOOGLE_CREDENTIALS_JSON", None)
+        if credentials_json:
+            import json
+            from google.oauth2 import service_account
+            import google.auth
+
+            try:
+                info = json.loads(credentials_json)
+                credentials = service_account.Credentials.from_service_account_info(info)
+                google.auth.default = lambda: (credentials, None)
+            except Exception as e:
+                logger.error(f"Failed to parse credentials JSON: {e}")
+
         vertexai.init(project=GOOGLE_PROJECT_ID, location=GOOGLE_LOCATION)
 
 ## Embeddings

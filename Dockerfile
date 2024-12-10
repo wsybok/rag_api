@@ -11,9 +11,6 @@ RUN apt-get update \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Create directory for Google credentials with proper permissions
-RUN mkdir -p /app/api/data && chmod 755 /app/api/data
-
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
