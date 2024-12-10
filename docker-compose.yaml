@@ -17,12 +17,16 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=5432
-      - GOOGLE_CLOUD_PROJECT=${GOOGLE_PROJECT_ID}  # 添加这个环境变量
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/api/data/auth.json
+      - GOOGLE_CLOUD_PROJECT=${GOOGLE_PROJECT_ID}
     ports:
       - "8000:8000"
     volumes:
       - ./uploads:/app/uploads
-      - ${GOOGLE_APPLICATION_CREDENTIALS}:/app/api/data/auth.json  # 修改挂载方式
+      - type: bind
+        source: ./auth.json
+        target: /app/api/data/auth.json
+        read_only: true
     depends_on:
       - db
     env_file:
