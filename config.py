@@ -24,6 +24,7 @@ class EmbeddingsProvider(Enum):
     HUGGINGFACETEI = "huggingfacetei"
     OLLAMA = "ollama"
     BEDROCK = "bedrock"
+    GOOGLE = "google"
 
 
 def get_env_variable(
