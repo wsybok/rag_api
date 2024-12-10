@@ -17,12 +17,12 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=5432
-      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/google.json
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/api/data/auth.json
     ports:
       - "8000:8000"
     volumes:
       - ./uploads:/app/uploads
-      - ./credentials:/app/credentials
+      - ./data:/app/api/data
     depends_on:
       - db
     env_file:

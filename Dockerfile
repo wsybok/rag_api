@@ -15,7 +15,7 @@ RUN apt-get update \
 RUN mkdir -p /app/credentials
 
 # Set default credentials path
-ENV GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/google.json
+# ENV GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/google.json
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
