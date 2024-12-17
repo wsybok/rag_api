@@ -1,4 +1,4 @@
-FROM python:3.10 AS main
+FROM python:3.10-slim AS lite
 
 WORKDIR /app
 
@@ -11,8 +11,8 @@ RUN apt-get update \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.lite.txt .
+RUN pip install --no-cache-dir -r requirements.lite.txt
 
 # Download standard NLTK data, to prevent unstructured from downloading packages at runtime
 RUN python -m nltk.downloader -d /app/nltk_data punkt_tab averaged_perceptron_tagger
