@@ -9,6 +9,9 @@ services:
       - pgdata2:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+    networks:
+      - librechat_worldlm_default
+
 
   fastapi:
     build: .
@@ -28,6 +31,13 @@ services:
       - db
     env_file:
       - .env
+    networks:
+      - librechat_worldlm_default
+
 
 volumes:
   pgdata2:
+networks:
+  librechat_worldlm_default:
+    external: true
+
