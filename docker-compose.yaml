@@ -21,6 +21,9 @@ services:
       - "8000:8000"
     volumes:
       - ./uploads:/app/uploads
+      - type: bind
+        source: ./auth.json
+        target: /app/api/data/auth.json
     depends_on:
       - db
     env_file:
