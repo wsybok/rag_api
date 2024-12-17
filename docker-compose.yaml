@@ -15,8 +15,8 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=5432
-      - GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID}
-      - GOOGLE_CREDENTIALS_JSON=${GOOGLE_CREDENTIALS_JSON}
+    #  - GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID}
+    #  - GOOGLE_CREDENTIALS_JSON=${GOOGLE_CREDENTIALS_JSON}
     ports:
       - "8000:8000"
     volumes:
