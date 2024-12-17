@@ -6,6 +6,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
+      - type: bind
+        source: ./auth.json
+        target: /app/api/data/auth.json
       - ./uploads:/app/uploads
     env_file:
       - .env
