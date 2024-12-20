@@ -283,7 +283,7 @@ elif EMBEDDINGS_PROVIDER == EmbeddingsProvider.BEDROCK:
     AWS_DEFAULT_REGION = get_env_variable("AWS_DEFAULT_REGION", "us-east-1")
 elif EMBEDDINGS_PROVIDER == EmbeddingsProvider.GOOGLE:
     EMBEDDINGS_MODEL = get_env_variable(
-        "EMBEDDINGS_MODEL", "multimodalembedding"  # 更新为最新的模型版本
+        "EMBEDDINGS_MODEL", "text-multilingual-embedding-002"  # 更新为最新的模型版本
     )
 else:
     raise ValueError(f"Unsupported embeddings provider: {EMBEDDINGS_PROVIDER}")
